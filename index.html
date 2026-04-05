@@ -1,158 +1,222 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Docfind - Premium Search</title>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
-    
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap"
+      rel="stylesheet"
+    />
+
     <style>
-        /* --- Global Styles --- */
-        * { box-sizing: border-box; margin: 0; padding: 0; }
-        body {
-            background: radial-gradient(circle at top left, #f8faff 0%, #e0e6ed 100%);
-            font-family: 'Inter', sans-serif;
-            color: #1a1f36;
-            display: flex;
-            justify-content: center;
-            padding-top: 80px;
-            min-height: 100vh;
-        }
-        .docs-container { width: 90%; max-width: 800px; display: flex; flex-direction: column; align-items: center; }
+      /* --- Global Styles --- */
+      * {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+      }
+      body {
+        background: radial-gradient(
+          circle at top left,
+          #f8faff 0%,
+          #e0e6ed 100%
+        );
+        font-family: "Inter", sans-serif;
+        color: #1a1f36;
+        display: flex;
+        justify-content: center;
+        padding-top: 80px;
+        min-height: 100vh;
+      }
+      .docs-container {
+        width: 90%;
+        max-width: 800px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+      }
 
-        /* --- Glassy Header and Search Box --- */
-        .search-header {
-            width: 100%;
-            background: rgba(255, 255, 255, 0.6);
-            backdrop-filter: blur(10px);
-            -webkit-backdrop-filter: blur(10px);
-            padding: 30px;
-            border-radius: 20px;
-            box-shadow: 0 8px 32px rgba(31, 38, 135, 0.1);
-            border: 1px solid rgba(255, 255, 255, 0.3);
-            margin-bottom: 30px;
-            text-align: center;
-        }
-        .docs-title { font-size: 2rem; font-weight: 600; margin-bottom: 25px; color: #3c4257; }
-        .search-box-wrapper { position: relative; width: 100%; max-width: 600px; margin: 0 auto; }
-        
-        #docs-search-input {
-            width: 100%;
-            padding: 16px 20px 16px 50px;
-            font-size: 1.1rem;
-            border-radius: 30px;
-            border: 1px solid rgba(0, 0, 0, 0.1);
-            background: rgba(255, 255, 255, 0.9);
-            color: #1a1f36;
-            transition: box-shadow 0.3s ease, border-color 0.3s ease;
-        }
-        #docs-search-input:focus {
-            outline: none;
-            border-color: #556ee6;
-            box-shadow: 0 0 0 4px rgba(85, 110, 230, 0.15);
-        }
-        #docs-search-input::placeholder { color: #a3acb9; }
-        .search-icon {
-            position: absolute; left: 18px; top: 50%;
-            transform: translateY(-50%); font-size: 1.3rem;
-            color: #a3acb9; pointer-events: none;
-        }
+      /* --- Glassy Header and Search Box --- */
+      .search-header {
+        width: 100%;
+        background: rgba(255, 255, 255, 0.6);
+        backdrop-filter: blur(10px);
+        -webkit-backdrop-filter: blur(10px);
+        padding: 30px;
+        border-radius: 20px;
+        box-shadow: 0 8px 32px rgba(31, 38, 135, 0.1);
+        border: 1px solid rgba(255, 255, 255, 0.3);
+        margin-bottom: 30px;
+        text-align: center;
+      }
+      .docs-title {
+        font-size: 2rem;
+        font-weight: 600;
+        margin-bottom: 25px;
+        color: #3c4257;
+      }
+      .search-box-wrapper {
+        position: relative;
+        width: 100%;
+        max-width: 600px;
+        margin: 0 auto;
+      }
 
-        /* --- Glassy Search Results --- */
-        .search-results-container { width: 100%; display: flex; flex-direction: column; gap: 15px; }
-        .search-result-item {
-            background: rgba(255, 255, 255, 0.6);
-            backdrop-filter: blur(8px);
-            -webkit-backdrop-filter: blur(8px);
-            padding: 20px;
-            border-radius: 15px;
-            border: 1px solid rgba(255, 255, 255, 0.3);
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.03);
-            transition: transform 0.2s ease, box-shadow 0.2s ease;
-        }
-        .search-result-item:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
-            background: rgba(255, 255, 255, 0.75);
-        }
-        .result-title { font-size: 1.2rem; font-weight: 500; color: #556ee6; text-decoration: none; margin-bottom: 5px; display: inline-block; }
-        .result-title:hover { text-decoration: underline; }
-        .result-path { font-size: 0.85rem; color: #a3acb9; margin-bottom: 10px; text-transform: uppercase; letter-spacing: 0.05em; }
-        .result-snippet { font-size: 0.95rem; line-height: 1.6; color: #697386; }
+      #docs-search-input {
+        width: 100%;
+        padding: 16px 20px 16px 50px;
+        font-size: 1.1rem;
+        border-radius: 30px;
+        border: 1px solid rgba(0, 0, 0, 0.1);
+        background: rgba(255, 255, 255, 0.9);
+        color: #1a1f36;
+        transition:
+          box-shadow 0.3s ease,
+          border-color 0.3s ease;
+      }
+      #docs-search-input:focus {
+        outline: none;
+        border-color: #556ee6;
+        box-shadow: 0 0 0 4px rgba(85, 110, 230, 0.15);
+      }
+      #docs-search-input::placeholder {
+        color: #a3acb9;
+      }
+      .search-icon {
+        position: absolute;
+        left: 18px;
+        top: 50%;
+        transform: translateY(-50%);
+        font-size: 1.3rem;
+        color: #a3acb9;
+        pointer-events: none;
+      }
+
+      /* --- Glassy Search Results --- */
+      .search-results-container {
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        gap: 15px;
+      }
+      .search-result-item {
+        background: rgba(255, 255, 255, 0.6);
+        backdrop-filter: blur(8px);
+        -webkit-backdrop-filter: blur(8px);
+        padding: 20px;
+        border-radius: 15px;
+        border: 1px solid rgba(255, 255, 255, 0.3);
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.03);
+        transition:
+          transform 0.2s ease,
+          box-shadow 0.2s ease;
+      }
+      .search-result-item:hover {
+        transform: translateY(-3px);
+        box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
+        background: rgba(255, 255, 255, 0.75);
+      }
+      .result-title {
+        font-size: 1.2rem;
+        font-weight: 500;
+        color: #556ee6;
+        text-decoration: none;
+        margin-bottom: 5px;
+        display: inline-block;
+      }
+      .result-title:hover {
+        text-decoration: underline;
+      }
+      .result-path {
+        font-size: 0.85rem;
+        color: #a3acb9;
+        margin-bottom: 10px;
+        text-transform: uppercase;
+        letter-spacing: 0.05em;
+      }
+      .result-snippet {
+        font-size: 0.95rem;
+        line-height: 1.6;
+        color: #697386;
+      }
     </style>
-</head>
-<body>
-
+  </head>
+  <body>
     <div class="docs-container">
-        <div class="search-header">
-            <h1 class="docs-title">Documentation Search</h1>
-            <div class="search-box-wrapper">
-                <input type="text" id="docs-search-input" placeholder="Search the docs (e.g., 'WebAssembly')...">
-                <span class="search-icon">🔍</span>
-            </div>
+      <div class="search-header">
+        <h1 class="docs-title">Documentation Search</h1>
+        <div class="search-box-wrapper">
+          <input
+            type="text"
+            id="docs-search-input"
+            placeholder="Search: install, deploy, debug Kafka, Redis, PostgreSQL..."
+          />
+          <span class="search-icon">🔍</span>
         </div>
+      </div>
 
-        <div class="search-results-container" id="search-results">
-            </div>
+      <div class="search-results-container" id="search-results"></div>
     </div>
 
     <script type="module">
-        // Import the search function based on your requested path
-        // Ensure docfind_bg.wasm is in the same folder as docfind.js
-        import search from './output/docfind.js';
+      // Import the search function based on your requested path
+      // Ensure docfind_bg.wasm is in the same folder as docfind.js
+      import search from "./output/docfind.js";
 
-        const input = document.getElementById('docs-search-input');
-        const list = document.getElementById('search-results');
+      const input = document.getElementById("docs-search-input");
+      const list = document.getElementById("search-results");
 
-        input.addEventListener('input', async (e) => {
-            const query = e.target.value.trim();
-            
-            // Clear results if the search box is empty
-            if (!query) {
-                list.innerHTML = '';
-                return;
-            }
+      input.addEventListener("input", async (e) => {
+        const query = e.target.value.trim();
 
-            try {
-                // This is where the magic happens. 
-                // The first time this runs, it downloads the WASM file.
-                // Subsequent searches are instant (0.4ms).
-                const results = await search(query);
+        // Clear results if the search box is empty
+        if (!query) {
+          list.innerHTML = "";
+          return;
+        }
 
-                // Handle empty results
-                if (!results || results.length === 0) {
-                    list.innerHTML = `
+        try {
+          // This is where the magic happens.
+          // The first time this runs, it downloads the WASM file.
+          // Subsequent searches are instant (0.4ms).
+          const results = await search(query);
+
+          // Handle empty results
+          if (!results || results.length === 0) {
+            list.innerHTML = `
                         <div class="search-result-item" style="text-align: center; color: #697386;">
                             <p>No results found for that query.</p>
                         </div>
                     `;
-                    return;
-                }
+            return;
+          }
 
-                // Render results dynamically using the premium UI classes
-                list.innerHTML = results.map(doc => {
-                    const category = doc.category || 'Documentation';
-                    // Grab a short snippet of the body text to display
-                    const snippet = doc.body ? doc.body.substring(0, 120) : '';
-                    
-                    return `
+          // Render results dynamically using the premium UI classes
+          list.innerHTML = results
+            .map((doc) => {
+              const category = doc.category || "Documentation";
+              // Grab a short snippet of the body text to display
+              const snippet = doc.body ? doc.body.substring(0, 120) : "";
+
+              return `
                         <div class="search-result-item">
                             <a href="${doc.href}" class="result-title">${doc.title}</a>
                             <p class="result-path">${category}</p>
                             <p class="result-snippet">${snippet}...</p>
                         </div>
                     `;
-                }).join('');
-
-            } catch (error) {
-                console.error("Search failed:", error);
-                list.innerHTML = `
+            })
+            .join("");
+        } catch (error) {
+          console.error("Search failed:", error);
+          list.innerHTML = `
                     <div class="search-result-item" style="text-align: center; color: #e65555;">
                         <p>Something went wrong with the search engine.</p>
                     </div>
                 `;
-            }
-        });
+        }
+      });
     </script>
-</body>
+  </body>
 </html>
