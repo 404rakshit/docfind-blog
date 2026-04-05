@@ -1,8 +1,3 @@
-Here is a clean, professional, and easy-to-follow `README.md` tailored for your repository. It includes all the steps someone needs to clone, build, and run the project, plus a specific shoutout to your sample data file.
-
-***
-
-```markdown
 # 🔍 Docfind Blog: Serverless WebAssembly Search
 
 This repository contains the companion code for my blog post on building a lightning-fast, zero-server search engine using **WebAssembly** and **Rust**. 
@@ -72,4 +67,3 @@ Open your browser to the local address provided (e.g., `http://localhost:8000`),
 * **Original Engineering Blog:** [Building docfind: Fast Client-Side Search with Rust and WebAssembly](https://code.visualstudio.com/blogs/2026/01/15/docfind)
 * **Official Microsoft Repo:** [microsoft/docfind](https://github.com/microsoft/docfind)
 * **Interactive Demo:** [VS Code docfind Demo](https://microsoft.github.io/docfind/)
-```
